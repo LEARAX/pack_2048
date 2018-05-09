@@ -5,3 +5,4 @@ authors = ["LEARAX57H <willculhane3@gmail.com>"]
 
 [dependencies]
 termion = "1.5.1"
+rand = "0.4.2"
