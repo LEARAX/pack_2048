@@ -20,9 +20,9 @@ impl Game {
         let tile_x = rng.gen_range(0, 4);
         let tile_y = rng.gen_range(0, 4);
         let value = if rng.gen_weighted_bool(10) {
-            2
-        } else {
             4
+        } else {
+            2
         };
 
         self.board[tile_x][tile_y] = value;
