@@ -14,11 +14,12 @@ pub enum Move {
     West,
     East,
     South,
+    Still,
 }
 
 struct Game {
     board: [[Tile; 4]; 4],
-    points: u8,
+    score: u8,
 }
 
 impl Game {
@@ -31,25 +32,33 @@ impl Game {
         self.board[tile_x][tile_y] = value;
     }
     pub fn handle_move(&mut self, game_move: Move) {
-        // TODO
+        match game_move {
+            Move::East => {
+                for row in self.board.iter() {
+                    // TODO
+                }
+            }
+            _ => {}
+        }
     }
     pub fn get_text_board(&self) -> std::string::String {
+        let divider: std::string::String = "+---+---+---+---+\r\n".to_string();
         let mut finished_string = String::new();
         for row in self.board.iter() {
-            finished_string = finished_string + &"+---+---+---+---+\r\n".to_string();
+            finished_string = finished_string + &divider;
             for cell in row.iter() {
                 finished_string = finished_string + "| " + &cell.to_string() + " ";
             }
             finished_string = finished_string + "|\r\n"
         }
-        finished_string = finished_string + &"+---+---+---+---+".to_string();
+        finished_string = finished_string + &divider;
         return finished_string;
     }
     pub fn new() -> Game {
         let board = [[0; 4]; 4];
         Game {
             board: board,
-            points: 0,
+            score: 0,
         }
     }
 }
@@ -62,10 +71,11 @@ fn main() {
     Game::gen_tile(&mut game_state);
     writeln!(
         stdout,
-        "{}{}{}{}",
+        "{}{}{}\r\nScore: {}{}",
         termion::clear::All,
         termion::cursor::Goto(1, 1),
         Game::get_text_board(&game_state),
+        game_state.score,
         termion::cursor::Hide
     ).unwrap();
     stdout.flush().unwrap();
@@ -75,7 +85,8 @@ fn main() {
             Key::Char('j') => Move::South,
             Key::Char('k') => Move::North,
             Key::Char('l') => Move::East,
-            _ => Move::West,
+            Key::Char('q') => break,
+            _ => break,
         };
         Game::handle_move(&mut game_state, game_move);
         break;
