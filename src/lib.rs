@@ -10,6 +10,7 @@ pub enum Move {
     West,
     East,
     South,
+    None,
 }
 
 pub struct Game {
