@@ -4,6 +4,7 @@ description = "A portable implementation of 2048"
 version = "0.1.1"
 authors = ["LEARAX57H <willculhane3@gmail.com>"]
 
+categories = ["games"]
 keywords = ["2048", "game"]
 license = "MIT"
 readme = "README.md"
