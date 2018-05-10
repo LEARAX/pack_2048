@@ -25,11 +25,15 @@ struct Game {
 impl Game {
     pub fn gen_tile(&mut self) {
         let mut rng = rand::thread_rng();
-        let tile_x = rng.gen_range(0, 4);
-        let tile_y = rng.gen_range(0, 4);
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
-
-        self.board[tile_x][tile_y] = value;
+        loop {
+            let tile_x = rng.gen_range(0, 4);
+            let tile_y = rng.gen_range(0, 4);
+            if self.board[tile_x][tile_y] != 0 {
+                self.board[tile_x][tile_y] = value;
+                break;
+            }
+        }
     }
     pub fn handle_move(&mut self, game_move: Move) {
         match game_move {
@@ -84,7 +88,7 @@ fn main() {
         Game::get_text_board(&game_state),
         game_state.score,
         termion::cursor::Hide
-    ).unwrap();
+        ).unwrap();
     stdout.flush().unwrap();
     for keypress in stdin.keys() {
         let game_move = match keypress.unwrap() {
@@ -104,7 +108,7 @@ fn main() {
             Game::get_text_board(&game_state),
             game_state.score,
             termion::cursor::Hide
-        ).unwrap();
+            ).unwrap();
         stdout.flush().unwrap();
     }
     write!(stdout, "{}", termion::cursor::Show).unwrap();
