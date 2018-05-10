@@ -10,7 +10,6 @@ pub enum Move {
     West,
     East,
     South,
-    Still,
 }
 
 pub struct Game {
@@ -22,7 +21,7 @@ impl Game {
     pub fn gen_tile(&mut self) {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
-        // TODO: Make this only work for empty cells
+        // TODO: Make this only work for empty cells, instead of brute-forcing it
         loop {
             let tile_x = rng.gen_range(0, 4);
             let tile_y = rng.gen_range(0, 4);
