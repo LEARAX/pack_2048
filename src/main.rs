@@ -88,7 +88,7 @@ fn main() {
         Game::get_text_board(&game_state),
         game_state.score,
         termion::cursor::Hide
-        ).unwrap();
+    ).unwrap();
     stdout.flush().unwrap();
     for keypress in stdin.keys() {
         let game_move = match keypress.unwrap() {
@@ -109,7 +109,7 @@ fn main() {
             Game::get_text_board(&game_state),
             game_state.score,
             termion::cursor::Hide
-            ).unwrap();
+        ).unwrap();
         stdout.flush().unwrap();
     }
     write!(stdout, "\r\n{}", termion::cursor::Show).unwrap();
