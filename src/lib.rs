@@ -32,9 +32,9 @@ impl Game {
             }
         }
     }
-    pub fn handle_move(&mut self, game_move: Move) {
+    pub fn handle_move(&mut self, game_move: Option<Move>) {
         match game_move {
-            Move::West => {
+            Some(Move::West) => {
                 for row_index in 0..4 {
                     for column_index in (1..4).rev() {
                         if self.board[row_index][column_index] != (0 as usize) {
@@ -56,6 +56,7 @@ impl Game {
                     }
                 }
             }
+            None => {}
             _ => {} // TODO: Make this error.
         }
     }
