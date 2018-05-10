@@ -35,7 +35,7 @@ impl Game {
         match game_move {
             Move::West => {
                 for row_index in 0..4 {
-                    for column_index in 3..1 {
+                    for column_index in (1..4).rev() {
                         if self.board[row_index][column_index] != (0 as u64) {
                             while self.board[row_index][column_index - 1] == (0 as u64) {
                                 self.board[row_index][column_index - 1] =
@@ -87,16 +87,6 @@ fn main() {
         ).unwrap();
     stdout.flush().unwrap();
     for keypress in stdin.keys() {
-        writeln!(
-            stdout,
-            "{}{}{}\r\nScore: {}{}",
-            termion::clear::All,
-            termion::cursor::Goto(1, 1),
-            Game::get_text_board(&game_state),
-            game_state.score,
-            termion::cursor::Hide
-            ).unwrap();
-
         let game_move = match keypress.unwrap() {
             Key::Char('h') => Move::West,
             Key::Char('j') => Move::South,
@@ -106,7 +96,16 @@ fn main() {
             _ => break,
         };
         Game::handle_move(&mut game_state, game_move);
-
+        writeln!(
+            stdout,
+            "{}{}{}\r\nScore: {}{}",
+            termion::clear::All,
+            termion::cursor::Goto(1, 1),
+            Game::get_text_board(&game_state),
+            game_state.score,
+            termion::cursor::Hide
+            ).unwrap();
+        stdout.flush().unwrap();
     }
     write!(stdout, "{}", termion::cursor::Show).unwrap();
 }
