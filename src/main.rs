@@ -36,8 +36,8 @@ impl Game {
             Move::West => {
                 for row_index in 0..4 {
                     for column_index in 3..1 {
-                        if &self.board[row_index][column_index] != &(0 as u64) {
-                            while &self.board[row_index][column_index - 1] == &(0 as u64) {
+                        if self.board[row_index][column_index] != (0 as u64) {
+                            while self.board[row_index][column_index - 1] == (0 as u64) {
                                 self.board[row_index][column_index - 1] =
                                     self.board[row_index][column_index];
                                 self.board[row_index][column_index] = 0 as Tile;
