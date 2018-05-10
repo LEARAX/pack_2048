@@ -24,10 +24,10 @@ fn main() {
     stdout.flush().unwrap();
     for keypress in stdin.keys() {
         let game_move = match keypress.unwrap() {
-            Key::Char('h') => Move::West,
-            Key::Char('j') => Move::South,
-            Key::Char('k') => Move::North,
-            Key::Char('l') => Move::East,
+            Key::Up | Key::Char('k') | Key::Char('w') => Move::North,
+            Key::Left | Key::Char('h') | Key::Char('a') => Move::West,
+            Key::Right | Key::Char('l') | Key::Char('d') => Move::East,
+            Key::Down | Key::Char('j') | Key::Char('s') => Move::South,
             Key::Char('q') => break,
             _ => break,
         };
