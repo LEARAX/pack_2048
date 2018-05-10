@@ -3,7 +3,7 @@ extern crate termion;
 
 use rand::Rng;
 
-type Tile = u64;
+type Tile = usize;
 
 pub enum Move {
     North,
@@ -15,7 +15,7 @@ pub enum Move {
 
 pub struct Game {
     pub board: [[Tile; 4]; 4],
-    pub score: u8,
+    pub score: usize,
 }
 
 impl Game {
@@ -37,9 +37,9 @@ impl Game {
             Move::West => {
                 for row_index in 0..4 {
                     for column_index in (1..4).rev() {
-                        if self.board[row_index][column_index] != (0 as u64) {
+                        if self.board[row_index][column_index] != (0 as usize) {
                             // TODO: Iterate from left, to resolve bad merging
-                            while self.board[row_index][column_index - 1] == (0 as u64) {
+                            while self.board[row_index][column_index - 1] == (0 as usize) {
                                 self.board[row_index][column_index - 1] =
                                     self.board[row_index][column_index];
                                 self.board[row_index][column_index] = 0 as Tile;
@@ -50,7 +50,7 @@ impl Game {
                                 self.board[row_index][column_index - 1] +=
                                     self.board[row_index][column_index];
                                 self.board[row_index][column_index] = 0 as Tile;
-                                self.score += self.board[row_index][column_index - 1] as u8
+                                self.score += self.board[row_index][column_index - 1]
                             }
                         }
                     }
