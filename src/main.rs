@@ -33,12 +33,20 @@ impl Game {
     }
     pub fn handle_move(&mut self, game_move: Move) {
         match game_move {
-            Move::East => {
-                for row in self.board.iter() {
-                    // TODO
+            Move::West => {
+                for row_index in 0..4 {
+                    for column_index in 3..1 {
+                        if &self.board[row_index][column_index] != &(0 as u64) {
+                            while &self.board[row_index][column_index - 1] == &(0 as u64) {
+                                self.board[row_index][column_index - 1] =
+                                    self.board[row_index][column_index];
+                                self.board[row_index][column_index] = 0 as Tile;
+                            }
+                        }
+                    }
                 }
             }
-            _ => {}
+            _ => {} // TODO: Make this error.
         }
     }
     pub fn get_text_board(&self) -> std::string::String {
@@ -46,8 +54,8 @@ impl Game {
         let mut finished_string = String::new();
         for row in self.board.iter() {
             finished_string = finished_string + &divider;
-            for cell in row.iter() {
-                finished_string = finished_string + "| " + &cell.to_string() + " ";
+            for tile in row.iter() {
+                finished_string = finished_string + "| " + &tile.to_string() + " ";
             }
             finished_string = finished_string + "|\r\n"
         }
@@ -67,7 +75,6 @@ fn main() {
     let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
     let mut game_state = Game::new();
-    // loop {
     Game::gen_tile(&mut game_state);
     writeln!(
         stdout,
@@ -77,9 +84,19 @@ fn main() {
         Game::get_text_board(&game_state),
         game_state.score,
         termion::cursor::Hide
-    ).unwrap();
+        ).unwrap();
     stdout.flush().unwrap();
     for keypress in stdin.keys() {
+        writeln!(
+            stdout,
+            "{}{}{}\r\nScore: {}{}",
+            termion::clear::All,
+            termion::cursor::Goto(1, 1),
+            Game::get_text_board(&game_state),
+            game_state.score,
+            termion::cursor::Hide
+            ).unwrap();
+
         let game_move = match keypress.unwrap() {
             Key::Char('h') => Move::West,
             Key::Char('j') => Move::South,
@@ -89,8 +106,7 @@ fn main() {
             _ => break,
         };
         Game::handle_move(&mut game_state, game_move);
-        break;
+
     }
-    // }
     write!(stdout, "{}", termion::cursor::Show).unwrap();
 }
