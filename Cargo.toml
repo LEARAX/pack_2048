@@ -1,5 +1,6 @@
 [package]
 name = "pack_2048"
+description = "A portable implementation of 2048"
 version = "0.1.1"
 authors = ["LEARAX57H <willculhane3@gmail.com>"]
 
