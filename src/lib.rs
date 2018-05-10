@@ -37,6 +37,7 @@ impl Game {
                 for row_index in 0..4 {
                     for column_index in (1..4).rev() {
                         if self.board[row_index][column_index] != (0 as u64) {
+                            // TODO: Iterate from left, to resolve bad merging
                             while self.board[row_index][column_index - 1] == (0 as u64) {
                                 self.board[row_index][column_index - 1] =
                                     self.board[row_index][column_index];
