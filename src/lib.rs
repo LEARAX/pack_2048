@@ -2,10 +2,6 @@ extern crate rand;
 extern crate termion;
 
 use rand::Rng;
-use std::io::{stdin, stdout, Write};
-use termion::event::Key;
-use termion::input::TermRead;
-use termion::raw::IntoRawMode;
 
 type Tile = u64;
 

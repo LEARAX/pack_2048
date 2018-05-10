@@ -1,11 +1,11 @@
-extern crate termion;
 extern crate pack_2048;
+extern crate termion;
 
+use pack_2048::*;
 use std::io::{stdin, stdout, Write};
 use termion::event::Key;
 use termion::input::TermRead;
 use termion::raw::IntoRawMode;
-use pack_2048::*;
 
 fn main() {
     let stdin = stdin();
