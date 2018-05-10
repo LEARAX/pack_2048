@@ -50,6 +50,7 @@ impl Game {
                                 self.board[row_index][column_index - 1] +=
                                     self.board[row_index][column_index];
                                 self.board[row_index][column_index] = 0 as Tile;
+                                self.score += self.board[row_index][column_index - 1] as u8
                             }
                         }
                     }
