@@ -3,6 +3,20 @@ name = "pack_2048"
 version = "0.1.0"
 authors = ["LEARAX57H <willculhane3@gmail.com>"]
 
+keywords = ["2048", "game"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/LEARAX/pack_2048"
+
+[lib]
+name = "pack_2048"
+path = "src/lib.rs"
+
+[[bin]]
+name = "ptf8"
+path = "src/main.rs"
+
+
 [dependencies]
 termion = "1.5.1"
 rand = "0.4.2"
