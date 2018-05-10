@@ -29,7 +29,7 @@ impl Game {
         loop {
             let tile_x = rng.gen_range(0, 4);
             let tile_y = rng.gen_range(0, 4);
-            if self.board[tile_x][tile_y] != 0 {
+            if self.board[tile_x][tile_y] == 0 {
                 self.board[tile_x][tile_y] = value;
                 break;
             }
@@ -100,6 +100,7 @@ fn main() {
             _ => break,
         };
         Game::handle_move(&mut game_state, game_move);
+        Game::gen_tile(&mut game_state);
         writeln!(
             stdout,
             "{}{}{}\r\nScore: {}{}",
@@ -111,5 +112,5 @@ fn main() {
             ).unwrap();
         stdout.flush().unwrap();
     }
-    write!(stdout, "{}", termion::cursor::Show).unwrap();
+    write!(stdout, "\r\n{}", termion::cursor::Show).unwrap();
 }
