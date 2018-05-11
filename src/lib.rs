@@ -55,6 +55,26 @@ impl Game {
                     }
                 }
             }
+            Some(Move::East) => {
+                for mut row in &mut board.iter_mut() {
+                    for column in (0..3).rev() {
+                        for next_column in (0..column).rev() {
+                            if row[next_column] != 0 {
+                                if row[column] == 0 as Tile {
+                                    row[column] = row[next_column];
+                                    row[next_column] = 0;
+                                } else if row[column] == row[next_column] {
+                                    row[column] += row[column];
+                                    row[next_column] = 0;
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             None => {}
             _ => {} // TODO: Make this error.
         }
