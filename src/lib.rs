@@ -41,10 +41,10 @@ impl Game {
                         for next_column in (column + 1)..4 {
                             if row[next_column] != 0 {
                                 if row[column] == 0 as Tile {
-                                    row[column] += row[next_column];
+                                    row[column] = row[next_column];
                                     row[next_column] = 0;
                                 } else if row[column] == row[next_column] {
-                                    row[column] += row[next_column];
+                                    row[column] += row[column];
                                     row[next_column] = 0;
                                     break;
                                 } else {
