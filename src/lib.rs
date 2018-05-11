@@ -4,6 +4,7 @@ extern crate termion;
 use rand::Rng;
 
 type Tile = usize;
+type Board = [[Tile; 4]; 4];
 
 pub enum Move {
     North,
@@ -13,7 +14,7 @@ pub enum Move {
 }
 
 pub struct Game {
-    pub board: [[Tile; 4]; 4],
+    pub board: Board,
     pub score: usize,
 }
 
@@ -31,9 +32,28 @@ impl Game {
             }
         }
     }
-    // TODO: Change to board in struct
-    pub fn handle_move(board: &mut [[Tile; 4]; 4], game_move: Option<Move>) {
+    pub fn handle_move(board: &mut Board, game_move: Option<Move>) {
         match game_move {
+            Some(Move::North) => {
+                for column in 0..4 {
+                    for row in (0..4).rev() {
+                        for next_row in (row + 1)..4 {
+                            if board[next_row][column] != 0 {
+                                if board[row][column] == 0 as Tile {
+                                    board[row][column] = board[next_row][column];
+                                    board[next_row][column] = 0;
+                                } else if board[row][column] == board[next_row][column] {
+                                    board[row][column] += board[row][column];
+                                    board[next_row][column] = 0;
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             Some(Move::West) => {
                 for mut row in &mut board.iter_mut() {
                     for column in 0..3 {
@@ -74,11 +94,25 @@ impl Game {
                     }
                 }
             }
-            Some(Move::North) => {
-
-            }
             Some(Move::South) => {
-
+                for column in 0..4 {
+                    for row in (0..4).rev() {
+                        for next_row in (0..row).rev() {
+                            if board[next_row][column] != 0 {
+                                if board[row][column] == 0 as Tile {
+                                    board[row][column] = board[next_row][column];
+                                    board[next_row][column] = 0;
+                                } else if board[row][column] == board[next_row][column] {
+                                    board[row][column] += board[row][column];
+                                    board[next_row][column] = 0;
+                                    break;
+                                } else {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
             None => {}
         }
