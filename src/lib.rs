@@ -22,7 +22,13 @@ impl Game {
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
-        // TODO: Make this only work for empty cells, instead of brute-forcing it
+        for row in board.iter() {
+            for tile in row {
+                if tile != &mut 0 {
+                    // TODO
+                }
+            }
+        }
         loop {
             let tile_x = rng.gen_range(0, 4);
             let tile_y = rng.gen_range(0, 4);
@@ -118,10 +124,11 @@ impl Game {
             None => {}
         }
     }
-    pub fn get_text_board(&self) -> std::string::String {
+    // TODO: Scale with number of digits in number (log(n) + 1)
+    pub fn get_text_board(board: Board) -> std::string::String {
         let divider: std::string::String = "+---+---+---+---+\r\n".to_string();
         let mut finished_string = String::new();
-        for row in self.board.iter() {
+        for row in board.iter() {
             finished_string = finished_string + &divider;
             for tile in row.iter() {
                 finished_string = finished_string + "| " + &tile.to_string() + " ";

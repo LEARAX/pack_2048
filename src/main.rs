@@ -17,7 +17,7 @@ fn main() {
         "{}{}{}\r\nScore: {}{}",
         termion::clear::All,
         termion::cursor::Goto(1, 1),
-        Game::get_text_board(&game_state),
+        Game::get_text_board(game_state.board),
         game_state.score,
         termion::cursor::Hide
     ).unwrap();
@@ -41,7 +41,7 @@ fn main() {
             "{}{}{}\r\nScore: {}{}",
             termion::clear::All,
             termion::cursor::Goto(1, 1),
-            Game::get_text_board(&game_state),
+            Game::get_text_board(game_state.board),
             game_state.score,
             termion::cursor::Hide
         ).unwrap();
