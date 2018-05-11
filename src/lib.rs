@@ -32,91 +32,24 @@ impl Game {
             }
         }
     }
-    pub fn handle_move(&mut self, game_move: Option<Move>) {
+    // TODO: Change to board in struct
+    pub fn handle_move(board: &mut [[Tile; 4]; 4], game_move: Option<Move>) {
         match game_move {
             Some(Move::West) => {
-                for row_index in 0..4 {
-                    for column_index in (1..4).rev() {
-                        if self.board[row_index][column_index] != (0 as usize) {
-                            // TODO: Iterate from left, to resolve bad merging
-                            while self.board[row_index][column_index - 1] == (0 as usize) {
-                                self.board[row_index][column_index - 1] =
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                            }
-                            if self.board[row_index][column_index - 1]
-                                == self.board[row_index][column_index]
-                            {
-                                self.board[row_index][column_index - 1] +=
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                                self.score += self.board[row_index][column_index - 1]
-                            }
-                        }
-                    }
-                }
-            }
-            Some(Move::East) => {
-                for row_index in 0..4 {
-                    for column_index in 0..3 {
-                        if self.board[row_index][column_index] != (0 as usize) {
-                            // TODO: Resolve bad merging
-                            while self.board[row_index][column_index + 1] == (0 as usize) {
-                                self.board[row_index][column_index + 1] =
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                            }
-                            if self.board[row_index][column_index + 1]
-                                == self.board[row_index][column_index]
-                            {
-                                self.board[row_index][column_index + 1] +=
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                                self.score += self.board[row_index][column_index + 1]
-                            }
-                        }
-                    }
-                }
-            }
-            Some(Move::North) => {
-                for row_index in 0..4 {
-                    for column_index in (1..4).rev() {
-                        if self.board[row_index][column_index] != (0 as usize) {
-                            // TODO: Resolve bad merging
-                            while self.board[row_index - 1][column_index] == (0 as usize) {
-                                self.board[row_index - 1][column_index] =
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                            }
-                            if self.board[row_index - 1][column_index]
-                                == self.board[row_index][column_index]
-                            {
-                                self.board[row_index - 1][column_index] +=
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                                self.score += self.board[row_index][column_index - 1]
-                            }
-                        }
-                    }
-                }
-            }
-            Some(Move::South) => {
-                for row_index in 0..4 {
-                    for column_index in (1..4).rev() {
-                        if self.board[row_index][column_index] != (0 as usize) {
-                            // TODO: Resolve bad merging
-                            while self.board[row_index][column_index - 1] == (0 as usize) {
-                                self.board[row_index][column_index - 1] =
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                            }
-                            if self.board[row_index][column_index - 1]
-                                == self.board[row_index][column_index]
-                            {
-                                self.board[row_index][column_index - 1] +=
-                                    self.board[row_index][column_index];
-                                self.board[row_index][column_index] = 0 as Tile;
-                                self.score += self.board[row_index][column_index - 1]
+                for mut row in &mut board.iter_mut() {
+                    for column in 0..3 {
+                        for next_column in (column + 1)..4 {
+                            if row[next_column] != 0 {
+                                if row[column] == 0 as Tile {
+                                    row[column] += row[next_column];
+                                    row[next_column] = 0;
+                                } else if row[column] == row[next_column] {
+                                    row[column] += row[next_column];
+                                    row[next_column] = 0;
+                                    break;
+                                } else {
+                                    break;
+                                }
                             }
                         }
                     }

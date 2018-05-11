@@ -32,7 +32,7 @@ fn main() {
             _ => None,
         };
         if game_move.is_some() {
-            Game::handle_move(&mut game_state, game_move);
+            Game::handle_move(&mut game_state.board, game_move);
             Game::gen_tile(&mut game_state);
             // game_state.board.iter().position
         }
