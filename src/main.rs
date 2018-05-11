@@ -11,7 +11,7 @@ fn main() {
     let stdin = stdin();
     let mut stdout = stdout().into_raw_mode().unwrap();
     let mut game_state = Game::new();
-    Game::gen_tile(&mut game_state);
+    Game::gen_tile(&mut game_state.board);
     writeln!(
         stdout,
         "{}{}{}\r\nScore: {}{}",
@@ -33,7 +33,7 @@ fn main() {
         };
         if game_move.is_some() {
             Game::handle_move(&mut game_state.board, game_move);
-            Game::gen_tile(&mut game_state);
+            Game::gen_tile(&mut game_state.board);
             // game_state.board.iter().position
         }
         writeln!(

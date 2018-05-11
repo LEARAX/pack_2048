@@ -19,18 +19,19 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn gen_tile(&mut self) {
+    pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
         // TODO: Make this only work for empty cells, instead of brute-forcing it
         loop {
             let tile_x = rng.gen_range(0, 4);
             let tile_y = rng.gen_range(0, 4);
-            if self.board[tile_x][tile_y] == 0 {
-                self.board[tile_x][tile_y] = value;
+            if board[tile_x][tile_y] == 0 {
+                board[tile_x][tile_y] = value;
                 break;
             }
         }
+        board
     }
     pub fn handle_move(board: &mut Board, game_move: Option<Move>) {
         match game_move {
