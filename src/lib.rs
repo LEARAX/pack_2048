@@ -10,7 +10,6 @@ pub enum Move {
     West,
     East,
     South,
-    None,
 }
 
 pub struct Game {
@@ -75,8 +74,13 @@ impl Game {
                     }
                 }
             }
+            Some(Move::North) => {
+
+            }
+            Some(Move::South) => {
+
+            }
             None => {}
-            _ => {} // TODO: Make this error.
         }
     }
     pub fn get_text_board(&self) -> std::string::String {
