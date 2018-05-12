@@ -126,35 +126,33 @@ impl Game {
     }
     // TODO: Scale with number of digits in number (log(n) + 1)
     pub fn get_text_board(board: Board) -> std::string::String {
-        let mut max_digits = [3; 4];
+        let mut max_digits = [0; 4];
         for column in 0..4 {
             for row in 0..4 {
-                let digits = (board[row][column] as f32).log10().ceil() as usize + 2;
-                println!("DGITS: {}", digits);
+                let digits = digits(board[row][column]);
                 if digits > max_digits[column] {
                     max_digits[column] = digits
                 }
             }
         }
-        println!("ARRY: {:?}", max_digits);
-        let col1_dash = "-".repeat(max_digits[0]);
-        println!("DASH: {}", col1_dash);
-        let col2_dash = "-".repeat(max_digits[1]);
-        let col3_dash = "-".repeat(max_digits[2]);
-        let col4_dash = "-".repeat(max_digits[3]);
+        let col1_dash = "-".repeat(max_digits[0] + 2);
+        let col2_dash = "-".repeat(max_digits[1] + 2);
+        let col3_dash = "-".repeat(max_digits[2] + 2);
+        let col4_dash = "-".repeat(max_digits[3] + 2);
         let divider: std::string::String = format!(
             "+{c1}+{c2}+{c3}+{c4}+\r\n",
             c1 = col1_dash,
             c2 = col2_dash,
             c3 = col3_dash,
             c4 = col4_dash
-        );
+            );
 
         let mut finished_string = String::new();
         for row in board.iter() {
             finished_string = finished_string + &divider;
             for column in 0..4 {
-                finished_string = finished_string + "| " + &row[column].to_string() + &" ".repeat(max_digits[column]);
+                let padding_spaces = " ".repeat(1 + max_digits[column] - digits(row[column]));
+                finished_string = finished_string + "| " + &row[column].to_string() + &padding_spaces;
             }
             finished_string = finished_string + "|\r\n"
         }
@@ -167,5 +165,13 @@ impl Game {
             board: board,
             score: 0,
         }
+    }
+}
+
+fn digits(number: usize) -> usize {
+    if number != 0 {
+        (number as f32).log10().ceil() as usize
+    } else {
+        1
     }
 }
