@@ -22,20 +22,20 @@ impl Game {
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
-        for row in board.iter() {
-            for tile in row {
-                if tile != &mut 0 {
-                    // TODO
+        let mut zero_row = vec![];
+        let mut zero_column = vec![];
+        for row in 0..4 {
+            for column in 0..4 {
+                if board[row][column] == 0 {
+                    zero_row.push(row);
+                    zero_column.push(column);
                 }
             }
         }
-        loop {
-            let tile_x = rng.gen_range(0, 4);
-            let tile_y = rng.gen_range(0, 4);
-            if board[tile_x][tile_y] == 0 {
-                board[tile_x][tile_y] = value;
-                break;
-            }
+        if zero_row.len() != 0 {
+            let index_x = rng.gen_range(0, zero_row.len());
+            let index_y = rng.gen_range(0, zero_column.len());
+            board[zero_row[index_x]][zero_column[index_y]] = value;
         }
         board
     }
@@ -124,7 +124,6 @@ impl Game {
             None => {}
         }
     }
-    // TODO: Scale with number of digits in number (log(n) + 1)
     pub fn get_text_board(board: Board) -> std::string::String {
         let mut max_digits = [0; 4];
         for column in 0..4 {
@@ -145,16 +144,17 @@ impl Game {
             c2 = col2_dash,
             c3 = col3_dash,
             c4 = col4_dash
-            );
+        );
 
         let mut finished_string = String::new();
-        for row in board.iter() {
+        for row in &board {
             finished_string = finished_string + &divider;
             for column in 0..4 {
                 let padding_spaces = " ".repeat(1 + max_digits[column] - digits(row[column]));
-                finished_string = finished_string + "| " + &row[column].to_string() + &padding_spaces;
+                finished_string =
+                    finished_string + "| " + &row[column].to_string() + &padding_spaces;
             }
-            finished_string = finished_string + "|\r\n"
+            finished_string += "|\r\n"
         }
         finished_string = finished_string + &divider;
         return finished_string;
@@ -162,7 +162,7 @@ impl Game {
     pub fn new() -> Game {
         let board = [[0; 4]; 4];
         Game {
-            board: board,
+            board,
             score: 0,
         }
     }
