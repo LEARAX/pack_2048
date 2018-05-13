@@ -83,6 +83,9 @@ impl Game {
             Move::South => Game::move_south(board),
         }
     }
+    pub fn is_gameover(board: &mut Board) -> bool {
+        // Too tired to finish
+    }
     pub fn move_east(board: &mut Board) {
         for mut row in &mut board.iter_mut() {
             for column in (0..4).rev() {
