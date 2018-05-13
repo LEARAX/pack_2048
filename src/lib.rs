@@ -41,9 +41,9 @@ impl Game {
         }
         board
     }
-    pub fn get_text_board(board: Board) -> std::string::String {
+    pub fn get_text_board(board: &Board) -> std::string::String {
         let mut max_digits = [0; 4];
-        for row in &board {
+        for row in board {
             for (col_index, tile) in row.iter().enumerate() {
                 let digits = digits(tile);
                 if digits > max_digits[col_index] {
@@ -64,7 +64,7 @@ impl Game {
         );
 
         let mut finished_string = String::new();
-        for row in &board {
+        for row in board {
             finished_string = finished_string + &divider;
             for (col_index, _) in row.iter().enumerate() {
                 let padding_spaces =
