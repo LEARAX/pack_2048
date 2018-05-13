@@ -34,7 +34,6 @@ fn main() {
         if game_move.is_some() {
             Game::handle_move(&mut game_state.board, &game_move.unwrap());
             Game::gen_tile(&mut game_state.board);
-            // TODO: Test for gameover
         }
         writeln!(
             stdout,
@@ -46,6 +45,10 @@ fn main() {
             termion::cursor::Hide
         ).unwrap();
         stdout.flush().unwrap();
+
+        if Game::is_gameover(&game_state.board) {
+            break;
+        }
     }
     write!(stdout, "\r\n{}", termion::cursor::Show).unwrap();
 }

@@ -20,6 +20,7 @@ pub struct Game {
 }
 
 impl Game {
+    // TODO: Will overwrite cells
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
@@ -83,9 +84,19 @@ impl Game {
             Move::South => Game::move_south(board),
         }
     }
-    pub fn is_gameover(board: &mut Board) -> bool {
-        // Too tired to finish
+    pub fn is_gameover(board: &Board) -> bool {
+        let mut gameover = true;
+        for direction in [Move::East, Move::North, Move::South, Move::West].iter() {
+            let mut copy_board = board.clone();
+            Game::handle_move(&mut copy_board, &direction);
+            if &copy_board != board {
+                gameover = false;
+                break;
+            }
+        }
+        gameover
     }
+    // TODO: Cells will not merge properly when adjacent
     pub fn move_east(board: &mut Board) {
         for mut row in &mut board.iter_mut() {
             for column in (0..4).rev() {
