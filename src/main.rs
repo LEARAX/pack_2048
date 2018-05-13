@@ -34,7 +34,7 @@ fn main() {
         if game_move.is_some() {
             Game::handle_move(&mut game_state.board, &game_move.unwrap());
             Game::gen_tile(&mut game_state.board);
-            // game_state.board.iter().position
+            // TODO: Test for gameover
         }
         writeln!(
             stdout,
