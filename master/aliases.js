@@ -1,5 +1,6 @@
 var ALIASES = {};
 ALIASES['libc'] = {};
+ALIASES['libc'] = {};
 ALIASES['pack_2048'] = {};
 ALIASES['pack_2048'] = {};
 ALIASES['ptf8'] = {};
