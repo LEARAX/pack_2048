@@ -27,13 +27,13 @@ impl Game {
         let mut zero_column = vec![];
         for (row_index, row) in board.iter().enumerate() {
             for (column_index, tile) in row.iter().enumerate() {
-                if *tile == 0 {
+                if tile == &0 {
                     zero_row.push(row_index);
                     zero_column.push(column_index);
                 }
             }
         }
-        if zero_row.is_empty() {
+        if !zero_row.is_empty() {
             let index_x = rng.gen_range(0, zero_row.len());
             let index_y = rng.gen_range(0, zero_column.len());
             board[zero_row[index_x]][zero_column[index_y]] = value;
