@@ -125,7 +125,7 @@ impl Game {
             Move::North => Game::move_north(board),
             Move::West => Game::move_west(board),
             Move::East => Game::move_east(board),
-            Move::South => Game::move_south(board)
+            Move::South => Game::move_south(board),
         }
     }
     pub fn get_text_board(board: Board) -> std::string::String {
@@ -154,7 +154,8 @@ impl Game {
         for row in board.iter() {
             finished_string = finished_string + &divider;
             for (col_index, column) in row.iter().enumerate() {
-                let padding_spaces = " ".repeat(1 + max_digits[col_index] - digits(&row[col_index]));
+                let padding_spaces =
+                    " ".repeat(1 + max_digits[col_index] - digits(&row[col_index]));
                 finished_string =
                     finished_string + "| " + &row[col_index].to_string() + &padding_spaces;
             }
