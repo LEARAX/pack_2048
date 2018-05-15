@@ -21,7 +21,7 @@ pub struct Game {
 
 impl Game {
     // TODO: Will overwrite cells
-    /// Generates a tile in a random empty cell.
+    /// Generates a tile in a random empty cell of the provided board.
     ///
     /// There is a 90% chance that a 2 tile is generated, and a 10% chance
     /// for a 4 tile.
@@ -185,6 +185,7 @@ impl Game {
             }
         }
     }
+    /// Creates a new game state.
     pub fn new() -> Game {
         let board = [[0; 4]; 4];
         Game { board, score: 0 }
