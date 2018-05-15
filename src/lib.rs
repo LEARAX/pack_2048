@@ -21,6 +21,9 @@ pub struct Game {
 
 impl Game {
     // TODO: Will overwrite cells
+    /// Generates a tile in a random empty cell.
+    ///
+    /// There is a 90% chance for a 2 tile being generated, and a 10% chance for a 4 tile.
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
