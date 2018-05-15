@@ -22,6 +22,7 @@ fn main() {
         termion::cursor::Hide
     ).unwrap();
     stdout.flush().unwrap();
+
     for keypress in stdin.keys() {
         let game_move = match keypress.unwrap() {
             Key::Up | Key::Char('k') | Key::Char('w') => Some(Move::North),
@@ -37,8 +38,7 @@ fn main() {
         }
         writeln!(
             stdout,
-            "{}{}{}\r\nScore: {}{}",
-            termion::clear::All,
+            "{}{}\r\nScore: {}{}",
             termion::cursor::Goto(1, 1),
             Game::get_text_board(&game_state.board),
             game_state.score,
