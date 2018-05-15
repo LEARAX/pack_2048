@@ -14,12 +14,12 @@ fn main() {
     Game::gen_tile(&mut game_state.board);
     writeln!(
         stdout,
-        "{}{}{}\r\nScore: {}{}",
+        "{}{}{}{}\r\nScore: {}",
+        termion::cursor::Hide,
         termion::clear::All,
         termion::cursor::Goto(1, 1),
         Game::get_text_board(&game_state.board),
-        game_state.score,
-        termion::cursor::Hide
+        game_state.score
     ).unwrap();
     stdout.flush().unwrap();
 
@@ -38,11 +38,10 @@ fn main() {
         }
         writeln!(
             stdout,
-            "{}{}\r\nScore: {}{}",
+            "{}{}\r\nScore: {}",
             termion::cursor::Goto(1, 1),
             Game::get_text_board(&game_state.board),
-            game_state.score,
-            termion::cursor::Hide
+            game_state.score
         ).unwrap();
         stdout.flush().unwrap();
 
