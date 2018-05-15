@@ -23,7 +23,8 @@ impl Game {
     // TODO: Will overwrite cells
     /// Generates a tile in a random empty cell.
     ///
-    /// There is a 90% chance for a 2 tile being generated, and a 10% chance for a 4 tile.
+    /// There is a 90% chance that a 2 tile is generated, and a 10% chance
+    /// for a 4 tile.
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
@@ -44,6 +45,8 @@ impl Game {
         }
         board
     }
+    /// Returns a text render of the board. Each column is dynamically sized to
+    /// the number of digits in its largest member.
     pub fn get_text_board(board: &Board) -> std::string::String {
         let mut max_digits = [0; 4];
         for row in board {
@@ -79,6 +82,7 @@ impl Game {
         }
         finished_string + &divider
     }
+    /// Handles a standard move and writes the result to the provided board.
     pub fn handle_move(board: &mut Board, game_move: &Move) {
         match game_move {
             Move::North => Game::move_north(board),
@@ -87,6 +91,7 @@ impl Game {
             Move::South => Game::move_south(board),
         }
     }
+    /// Returns true if no valid moves are available.
     pub fn is_gameover(board: &Board) -> bool {
         let mut gameover = true;
         for direction in [Move::East, Move::North, Move::South, Move::West].iter() {
