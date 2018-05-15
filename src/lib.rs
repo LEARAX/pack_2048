@@ -193,7 +193,7 @@ impl Game {
 }
 
 fn digits(number: &usize) -> usize {
-    if *number != 0 {
+    if number != &0 {
         (*number as f32).log10().ceil() as usize
     } else {
         1
