@@ -18,7 +18,7 @@ fn main() {
             termion::cursor::Goto(1, 1),
             Game::get_text_board(&game_state.board),
             game_state.score
-            ).unwrap();
+        ).unwrap();
         stdout.flush().unwrap();
         /*
          * let game_move = match keypress.unwrap() {
