@@ -72,7 +72,7 @@ impl Game {
         let mut finished_string = String::new();
         for row in board {
             finished_string = finished_string + &divider;
-            for (col_index, _) in row.iter().enumerate() {
+            for col_index in 0..row.iter().count() {
                 let padding_spaces =
                     " ".repeat(1 + max_digits[col_index] - digits(&row[col_index]));
                 finished_string =
