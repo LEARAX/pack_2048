@@ -28,20 +28,17 @@ impl Game {
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
         let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
-        let mut zero_row = vec![];
-        let mut zero_column = vec![];
+        let mut zeroes = vec![];
         for (row_index, row) in board.iter().enumerate() {
             for (column_index, tile) in row.iter().enumerate() {
                 if tile == &0 {
-                    zero_row.push(row_index);
-                    zero_column.push(column_index);
+                    zeroes.push((column_index, row_index));
                 }
             }
         }
-        if !zero_row.is_empty() {
-            let index_x = rng.gen_range(0, zero_row.len());
-            let index_y = rng.gen_range(0, zero_column.len());
-            board[zero_row[index_x]][zero_column[index_y]] = value;
+        if !zeroes.is_empty() {
+            let (x, y) = zeroes[rng.gen_range(0, zeroes.len())];
+            board[y][x] = value;
         }
         board
     }
