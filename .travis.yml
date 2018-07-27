@@ -2,7 +2,6 @@ sudo: required
 language: rust
 rust:
   - stable
-  - beta
   - nightly
 cache: cargo
 
@@ -20,14 +19,6 @@ addons:
 env:
   global:
     - secure: CuRiEmdkgCjFMiOkGevaeDqJNd8Ad5YQjtDxEkWurqj5LiLyRr4Dgdk4Qh++v7ftrMM5cQAqxdmF1vr+uwARwtKQWCCDyxTDrchllJnGfdu1Iz41GTvEFw5DIuksis327osw0jRPEXsVBYWn9mX8TFc+INRaaGa42t+9zGk9l+lIoCDt+k1Dt0h7QwlhTGHK86bSb386QjbhB3EXg7Db1jMSLYwUc24t0Zhz1tIOpd0p/2VVoZ4H9L8FVnBm2diJy5EcAAHHgzVX3tso0QqZx22dYbWjF71IAXXLWBBXRFCuuf8mIM+bzoeqcGzIFKzdMWae+jtBq4zZiCPW64xodzimWqxXe4WTgsGNQjQ7M3SflRbfCTzsE/yTUPgqhEREq/feN+gHp6bX4qXvYQUeAsIG2MwhzX5ONADM+WurKzTs4SQ4dJBGouQdqbOslcsREqBRO4sxH2nB2+mer6U1P3wGui2/TagZzjfVHHouxbqJArTUKLRpHd/+jBpjI4W2yD95riJuMOAjB55RVDLESPXT8uHX2JZ/lk4g//d2W6q7mwhOR43YEwy2WEygireCoyIf6K7kXXGBaBrvu+slAnJbeqGhc9sC1QHmzg/OgCvV24sCApppALD9N4oCDMvQulCf9Z6RWWRIWwWWZqdGOuLEUs/Rr2OyANYT/dZTT5c=
-
-matrix:
-  include:
-    - rust: nightly
-  before_script:
-    - rustup component add rustfmt-preview
-  script:
-    - cargo fmt -- --write-mode=diff
 
 before_script:
   - export PATH=$HOME/.cargo/bin:$PATH
