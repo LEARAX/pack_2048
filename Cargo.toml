@@ -1,7 +1,7 @@
 [package]
 name = "pack_2048"
 description = "A portable implementation of 2048"
-version = "0.4.2"
+version = "0.4.3"
 authors = ["LEARAX57H <willculhane3@gmail.com>"]
 
 categories = ["games"]
@@ -24,4 +24,4 @@ path = "src/joco.rs"
 
 [dependencies]
 termion = "1.5.1"
-rand = "0.4.2"
+rand = "0.5.4"

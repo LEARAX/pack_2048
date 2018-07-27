@@ -20,14 +20,13 @@ pub struct Game {
 }
 
 impl Game {
-    // TODO: Will overwrite cells
     /// Generates a tile in a random empty cell of the provided board.
     ///
     /// There is a 90% chance that a 2 tile is generated, and a 10% chance
     /// for a 4 tile.
     pub fn gen_tile(board: &mut Board) -> &mut Board {
         let mut rng = rand::thread_rng();
-        let value = if rng.gen_weighted_bool(10) { 4 } else { 2 };
+        let value = if rng.gen_bool( 1.0 / 10.0) { 4 } else { 2 };
         let mut zeroes = vec![];
         for (row_index, row) in board.iter().enumerate() {
             for (column_index, tile) in row.iter().enumerate() {
